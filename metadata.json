@@ -1,0 +1,7 @@
+{
+  "name": "InterviewLens",
+  "description": "A strict, metric-driven technical interview simulator powered by Gemini.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
