@@ -1,4 +1,4 @@
-import { GoogleGenAI, Chat, Type, Schema } from "@google/genai";
+import { GoogleGenAI, Chat, Type, Schema, Modality } from "@google/genai";
 import { InterviewResponse, RoleFit } from "../types";
 
 const SYSTEM_INSTRUCTION = `
@@ -100,6 +100,27 @@ export class InterviewService {
   async sendAnswer(answer: string): Promise<InterviewResponse> {
     if (!this.chat) throw new Error("Interview session not initialized.");
     return this.sendMessage(`User Answer: ${answer}`);
+  }
+
+  async generateSpeech(text: string): Promise<string> {
+    try {
+      const response = await this.ai.models.generateContent({
+        model: "gemini-2.5-flash-preview-tts",
+        contents: [{ parts: [{ text }] }],
+        config: {
+          responseModalities: [Modality.AUDIO],
+          speechConfig: {
+            voiceConfig: {
+              prebuiltVoiceConfig: { voiceName: 'Kore' },
+            },
+          },
+        },
+      });
+      return response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data || '';
+    } catch (error) {
+      console.error("TTS Error:", error);
+      return '';
+    }
   }
 
   private async sendMessage(message: string): Promise<InterviewResponse> {

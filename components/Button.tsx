@@ -16,12 +16,12 @@ export const Button: React.FC<ButtonProps> = ({
   const baseStyle = "px-6 py-2.5 rounded-md font-medium text-sm tracking-wide transition-all duration-200 flex items-center justify-center gap-2 transform active:scale-[0.98]";
   
   const variants = {
-    // White/High-Contrast primary button for clean look
-    primary: "bg-zinc-100 hover:bg-white text-zinc-900 shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-transparent hover:shadow-[0_0_25px_rgba(255,255,255,0.2)]",
-    // Dark secondary button
-    secondary: "bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 hover:border-zinc-700",
-    // Red danger button
-    danger: "bg-red-900/50 hover:bg-red-900/80 text-red-200 border border-red-900"
+    // Primary: White in dark mode, Black in light mode
+    primary: "bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-zinc-100 dark:text-zinc-900 shadow-md border border-transparent",
+    // Secondary: Bordered
+    secondary: "bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700",
+    // Danger: Red
+    danger: "bg-red-50 dark:bg-red-900/50 hover:bg-red-100 dark:hover:bg-red-900/80 text-red-600 dark:text-red-200 border border-red-200 dark:border-red-900"
   };
 
   return (

@@ -9,17 +9,17 @@ interface HUDProps {
 export const HUD: React.FC<HUDProps> = ({ metrics }) => {
   const getFitColor = (fit: RoleFit) => {
     switch (fit) {
-      case RoleFit.HIGH: return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20';
-      case RoleFit.MEDIUM: return 'text-amber-400 bg-amber-500/10 border-amber-500/20';
-      case RoleFit.LOW: return 'text-rose-400 bg-rose-500/10 border-rose-500/20';
-      default: return 'text-zinc-500 bg-zinc-500/10 border-zinc-500/10';
+      case RoleFit.HIGH: return 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20';
+      case RoleFit.MEDIUM: return 'text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-500/20';
+      case RoleFit.LOW: return 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border-rose-500/20';
+      default: return 'text-zinc-400 dark:text-zinc-500 bg-zinc-500/10 border-zinc-500/10';
     }
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 8) return 'text-emerald-400';
-    if (score >= 5) return 'text-amber-400';
-    return 'text-rose-400';
+    if (score >= 8) return 'text-emerald-500 dark:text-emerald-400';
+    if (score >= 5) return 'text-amber-500 dark:text-amber-400';
+    return 'text-rose-500 dark:text-rose-400';
   };
 
   const getScoreWidth = (score: number) => {
@@ -29,7 +29,7 @@ export const HUD: React.FC<HUDProps> = ({ metrics }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
       {/* Current Score */}
-      <div className="glass-panel p-5 rounded-lg flex flex-col justify-between min-h-[90px] border-zinc-800">
+      <div className="glass-panel p-5 rounded-lg flex flex-col justify-between min-h-[90px] border-zinc-200 dark:border-zinc-800">
         <div className="flex justify-between items-start mb-2">
           <div className="flex items-center gap-2 text-zinc-500 text-[10px] font-mono uppercase tracking-widest font-bold">
             <Activity size={12} /> Performance
@@ -38,7 +38,7 @@ export const HUD: React.FC<HUDProps> = ({ metrics }) => {
             {metrics.currentScore.toFixed(1)}
           </div>
         </div>
-        <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+        <div className="w-full h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
           <div 
             className={`h-full rounded-full transition-all duration-1000 ease-out ${getScoreColor(metrics.currentScore).replace('text-', 'bg-')}`}
             style={{ width: getScoreWidth(metrics.currentScore) }}
@@ -47,7 +47,7 @@ export const HUD: React.FC<HUDProps> = ({ metrics }) => {
       </div>
 
       {/* Role Fit */}
-      <div className="glass-panel p-5 rounded-lg flex flex-col justify-between min-h-[90px] border-zinc-800">
+      <div className="glass-panel p-5 rounded-lg flex flex-col justify-between min-h-[90px] border-zinc-200 dark:border-zinc-800">
          <div className="flex items-center gap-2 text-zinc-500 text-[10px] font-mono uppercase tracking-widest font-bold mb-3">
           <Target size={12} /> Role Fit Forecast
         </div>
@@ -59,20 +59,20 @@ export const HUD: React.FC<HUDProps> = ({ metrics }) => {
       </div>
 
       {/* Question Progress */}
-      <div className="glass-panel p-5 rounded-lg flex flex-col justify-between min-h-[90px] border-zinc-800">
+      <div className="glass-panel p-5 rounded-lg flex flex-col justify-between min-h-[90px] border-zinc-200 dark:border-zinc-800">
          <div className="flex justify-between items-start mb-2">
             <div className="flex items-center gap-2 text-zinc-500 text-[10px] font-mono uppercase tracking-widest font-bold">
                 <Layers size={12} /> Progress
             </div>
-             <div className="text-xl font-bold font-mono text-zinc-300">
-                {metrics.questionNumber}<span className="text-sm text-zinc-600">/3</span>
+             <div className="text-xl font-bold font-mono text-zinc-700 dark:text-zinc-300">
+                {metrics.questionNumber}<span className="text-sm text-zinc-400 dark:text-zinc-600">/3</span>
              </div>
         </div>
         <div className="flex gap-1">
             {[1, 2, 3].map((step) => (
                 <div 
                     key={step}
-                    className={`h-1.5 flex-1 rounded-sm transition-colors duration-300 ${step <= metrics.questionNumber ? 'bg-indigo-500' : 'bg-zinc-800'}`}
+                    className={`h-1.5 flex-1 rounded-sm transition-colors duration-300 ${step <= metrics.questionNumber ? 'bg-indigo-500' : 'bg-zinc-200 dark:bg-zinc-800'}`}
                 ></div>
             ))}
         </div>
